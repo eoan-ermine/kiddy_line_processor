@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(pg_grpc_service_template CXX)
+project(kiddy_line_processor CXX)
 
 include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)

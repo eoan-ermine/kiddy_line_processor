@@ -63,15 +63,15 @@ jobs:
           - name: Test run after install
             if: matrix.make == 'test-release'
             run: |
-                ./local_installation/bin/pg_grpc_service_template --config=./local_installation/etc/pg_grpc_service_template/static_config.yaml &
+                ./local_installation/bin/kiddy_line_processor --config=./local_installation/etc/kiddy_line_processor/static_config.yaml &
 
           - name: Check work run service
             if: matrix.make == 'test-release'
             run: |
-                ps aux | grep pg_grpc_service_template | grep config && curl http://localhost:8080/ping -v
+                ps aux | grep kiddy_line_processor | grep config && curl http://localhost:8080/ping -v
 
           - name: Stop all
             if: matrix.make == 'test-release'
             run: |
-                killall pg_grpc_service_template
+                killall kiddy_line_processor
 
