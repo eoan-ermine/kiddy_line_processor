@@ -10,6 +10,7 @@ add_subdirectory(third_party/userver)
 # Common sources
 add_library(${PROJECT_NAME}_objs OBJECT
     src/hello/hello.hpp src/hello/hello.cpp src/hello/hello_client.hpp src/hello/hello_client.cpp
+    src/ready/ready.hpp src/ready/ready.cpp
 )
 # Grpc enable
 include(GrpcTargets)

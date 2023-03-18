@@ -8,6 +8,7 @@
 #include <userver/utils/daemon_run.hpp>
 
 #include "hello/hello.hpp"
+#include "ready/ready.hpp"
 #include "hello/hello_client.hpp"
 
 int main(int argc, char* argv[]) {
@@ -22,6 +23,8 @@ int main(int argc, char* argv[]) {
 
   kiddy_line_processor::AppendHello(component_list);
   kiddy_line_processor::AppendHelloClient(component_list);
+
+  kiddy_line_processor::AppendReady(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }
