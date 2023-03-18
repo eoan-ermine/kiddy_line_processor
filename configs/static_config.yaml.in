@@ -38,6 +38,9 @@ components_manager:
         hello-client:
             endpoint: $hello-endpoint
 
+        handler-subscribe:
+            task-processor: main-task-processor
+
         grpc-server:
             port: 8081
 

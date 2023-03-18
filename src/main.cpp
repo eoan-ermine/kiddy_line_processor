@@ -8,8 +8,10 @@
 #include <userver/utils/daemon_run.hpp>
 
 #include "hello/hello.hpp"
-#include "ready/ready.hpp"
 #include "hello/hello_client.hpp"
+#include "ready/ready.hpp"
+#include "subscribe/subscribe.hpp"
+
 
 int main(int argc, char* argv[]) {
   auto component_list =
@@ -25,6 +27,8 @@ int main(int argc, char* argv[]) {
   kiddy_line_processor::AppendHelloClient(component_list);
 
   kiddy_line_processor::AppendReady(component_list);
+
+  kiddy_line_processor::AppendSubscribe(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }
