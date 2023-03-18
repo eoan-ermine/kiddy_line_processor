@@ -12,6 +12,8 @@
 #include "ready/ready.hpp"
 #include "subscribe/subscribe.hpp"
 
+#include "pull_daemon/pull_daemon.hpp"
+
 int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
@@ -22,11 +24,11 @@ int main(int argc, char* argv[]) {
           .Append<userver::components::HttpClient>()
           .Append<userver::server::handlers::TestsControl>();
 
+  kiddy_line_processor::AppendPullDaemon(component_list);
+
   kiddy_line_processor::AppendHello(component_list);
   kiddy_line_processor::AppendHelloClient(component_list);
-
   kiddy_line_processor::AppendReady(component_list);
-
   kiddy_line_processor::AppendSubscribe(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);

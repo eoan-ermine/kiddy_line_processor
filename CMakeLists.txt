@@ -12,6 +12,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello/hello.hpp src/hello/hello.cpp src/hello/hello_client.hpp src/hello/hello_client.cpp
     src/ready/ready.hpp src/ready/ready.cpp
     src/subscribe/subscribe.hpp src/subscribe/subscribe.cpp
+    src/pull_daemon/pull_daemon.hpp src/pull_daemon/pull_daemon.cpp
 )
 # Grpc enable
 include(GrpcTargets)
