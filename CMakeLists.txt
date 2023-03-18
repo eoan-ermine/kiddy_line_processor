@@ -9,10 +9,7 @@ add_subdirectory(third_party/userver)
 
 # Common sources
 add_library(${PROJECT_NAME}_objs OBJECT
-    src/hello.hpp
-    src/hello.cpp
-    src/hello_client.hpp
-    src/hello_client.cpp
+    src/hello/hello.hpp src/hello/hello.cpp src/hello/hello_client.hpp src/hello/hello_client.cpp
 )
 # Grpc enable
 include(GrpcTargets)
@@ -28,7 +25,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 
 # Unit Tests
 add_executable(${PROJECT_NAME}_unittest
-    src/hello_test.cpp
+    src/hello/hello_test.cpp
 )
 target_link_libraries(${PROJECT_NAME}_unittest PRIVATE ${PROJECT_NAME}_objs userver-utest)
 add_google_tests(${PROJECT_NAME}_unittest)
@@ -36,7 +33,7 @@ add_google_tests(${PROJECT_NAME}_unittest)
 
 # Benchmarks
 add_executable(${PROJECT_NAME}_benchmark
-	src/hello_benchmark.cpp
+	src/hello/hello_benchmark.cpp
 )
 target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_objs userver-ubench)
 add_google_benchmark_tests(${PROJECT_NAME}_benchmark)

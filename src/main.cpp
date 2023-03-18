@@ -7,8 +7,8 @@
 #include <userver/ugrpc/server/server_component.hpp>
 #include <userver/utils/daemon_run.hpp>
 
-#include "hello.hpp"
-#include "hello_client.hpp"
+#include "hello/hello.hpp"
+#include "hello/hello_client.hpp"
 
 int main(int argc, char* argv[]) {
   auto component_list =
