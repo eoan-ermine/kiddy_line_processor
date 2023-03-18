@@ -1,0 +1,65 @@
+version: "2.3"
+
+services:
+    postgres:
+        container_name: service-postgres
+        image: postgres:12
+        environment:
+          - POSTGRES_DB=pg_grpc_service_template_db-1
+          - POSTGRES_USER=user
+          - POSTGRES_PASSWORD=password
+        ports:
+          - 5432
+        volumes:
+          - ./postgresql/schemas:/docker-entrypoint-initdb.d
+          - ./.pgdata:/var/lib/postgresql/data
+        networks:
+          - postgres
+
+    pg_grpc_service_template-container:
+        image: ghcr.io/userver-framework/ubuntu-userver-build-base:v1
+        privileged: true
+        environment:
+          - POSTGRES_DB=pg_grpc_service_template_db-1
+          - POSTGRES_USER=user
+          - POSTGRES_PASSWORD=password
+          - PREFIX=${PREFIX:-~/.local}
+          - CC
+          - CCACHE_DIR=/pg_grpc_service_template/.ccache
+          - CCACHE_HASHDIR
+          - CCACHE_NOHASHDIR
+          - CCACHE_PREFIX
+          - CCACHE_SIZE
+          - CMAKE_OPTS
+          - CORES_DIR=/cores
+          - CXX
+          - MAKE_OPTS
+        volumes:
+          - .:/pg_grpc_service_template:rw
+          - ./third_party/userver/tools/docker:/tools:ro
+          - ${TC_CORES_DIR:-./.cores}:/cores:rw
+        ports:
+          - 8080:8080
+          - 8081:8081
+        working_dir: /pg_grpc_service_template
+        entrypoint:
+          - /tools/run_as_user.sh
+        depends_on:
+          - postgres
+        networks:
+          - postgres
+          - dockerbridge
+
+networks:
+    postgres:
+        driver: bridge
+    dockerbridge:
+        enable_ipv6: true
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+             - subnet: 2001:3984:3989::/64
+               gateway: 2001:3984:3989::1
