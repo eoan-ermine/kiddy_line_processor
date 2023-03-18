@@ -10,4 +10,4 @@ server-grpc-port: 8081
 
 hello-endpoint: '[::1]:8081'
 
-dbconnection: 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/kiddy_line_processor_db_1'
+dbconnection: 'postgresql://kiddy_line_processor_user:password@localhost:5432/kiddy_line_processor_db_1'
