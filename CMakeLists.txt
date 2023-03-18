@@ -14,7 +14,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
 )
 # Grpc enable
 include(GrpcTargets)
-add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
+add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto handlers/subscribe.proto)
 
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql ${PROJECT_NAME}_proto)
 

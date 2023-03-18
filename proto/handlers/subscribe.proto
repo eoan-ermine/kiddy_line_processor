@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package handlers.api;
+
+service ProcessorService {
+	rpc SubscribeOnSportsLine(stream SubscribeInfo) returns (stream LinesInfo) {};
+}
+
+enum Sport {
+	BASEBALL = 0;
+	AMERICAN_FOOTBALL = 1;
+	FOOTBALL = 2;
+}
+
+message SubscribeInfo {
+	repeated Sport sports = 1;
+	int32 interval = 2;
+}
+
+message LinesInfo {
+	map<string, double> changes = 1;
+}
