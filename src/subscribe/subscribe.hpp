@@ -41,17 +41,18 @@ class Subscribe final : public handlers::api::ProcessorServiceBase::Component {
 
       using TupleType = std::tuple<int, double>;
 
-#define RetrieveChange(enumValue, tableName, fieldName)                       \
-  if (sport == enumValue) {                                                   \
-    auto [id, coefficient_sum] =                                              \
-        pg_cluster_                                                           \
-            ->Execute(                                                        \
-                userver::storages::postgres::ClusterHostType::kMaster,        \
-                "SELECT COALESCE(MAX(id), 0), COALESCE(SUM(coefficient), 0) " \
-                "FROM processor_schema." #tableName " WHERE id > $1",         \
-                last_id)                                                      \
-            .AsSingleRow<TupleType>(userver::storages::postgres::kRowTag);    \
-    last_id = id, response[#fieldName] = coefficient_sum;                     \
+#define RetrieveChange(enumValue, tableName, fieldName)                        \
+  if (sport == enumValue) {                                                    \
+    auto [id, coefficient_sum] =                                               \
+        pg_cluster_                                                            \
+            ->Execute(                                                         \
+                userver::storages::postgres::ClusterHostType::kMaster,         \
+                "SELECT COALESCE(MAX(id), -1), COALESCE(SUM(coefficient), 0) " \
+                "FROM processor_schema." #tableName " WHERE id > $1",          \
+                last_id)                                                       \
+            .AsSingleRow<TupleType>(userver::storages::postgres::kRowTag);     \
+    if (id != -1) last_id = id;                                                \
+    response[#fieldName] = coefficient_sum;                                    \
   }
 
       RetrieveChange(
