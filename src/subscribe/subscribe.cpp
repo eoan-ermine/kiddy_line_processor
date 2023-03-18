@@ -7,13 +7,14 @@
 
 namespace kiddy_line_processor {
 
-void Subscribe::SubscribeOnSportsLine(handlers::api::ProcessorServiceBase::SubscribeOnSportsLineCall& call) {
+void Subscribe::SubscribeOnSportsLine(
+    handlers::api::ProcessorServiceBase::SubscribeOnSportsLineCall& call) {
   handlers::api::SubscribeInfo request;
 
   while (call.Read(request)) {
     std::vector<SportInfo> sports;
-    for(int i = 0, size = request.sports_size(); i != size; ++i) {
-      sports.push_back(SportInfo { request.sports(i), 0 });
+    for (int i = 0, size = request.sports_size(); i != size; ++i) {
+      sports.push_back(SportInfo{request.sports(i), 0});
     }
     int interval = request.interval();
 

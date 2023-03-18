@@ -6,4 +6,4 @@ namespace kiddy_line_processor {
 
 void AppendReady(userver::components::ComponentList& component_list);
 
-} // namespace kiddy_line_processor
+}  // namespace kiddy_line_processor

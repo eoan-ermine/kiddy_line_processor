@@ -2,8 +2,8 @@
 
 #include <handlers/hello_client.usrv.pb.hpp>
 #include <userver/components/component_list.hpp>
-#include <userver/components/loggable_component_base.hpp>
 #include <userver/components/impl/component_base.hpp>
+#include <userver/components/loggable_component_base.hpp>
 #include <userver/ugrpc/client/client_factory_component.hpp>
 
 namespace kiddy_line_processor {
@@ -34,8 +34,8 @@ class HelloClient final : public userver::components::LoggableComponentBase {
 
 void AppendHelloClient(userver::components::ComponentList& component_list);
 
-
 }  // namespace kiddy_line_processor
 
 template <>
-inline constexpr bool userver::components::kHasValidate<kiddy_line_processor::HelloClient> = true;
+inline constexpr bool
+    userver::components::kHasValidate<kiddy_line_processor::HelloClient> = true;

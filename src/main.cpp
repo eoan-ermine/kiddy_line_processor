@@ -12,7 +12,6 @@
 #include "ready/ready.hpp"
 #include "subscribe/subscribe.hpp"
 
-
 int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
