@@ -3,6 +3,7 @@
 #include <userver/clients/dns/component.hpp>
 #include <userver/formats/json.hpp>
 #include <userver/server/handlers/http_handler_base.hpp>
+#include <userver/server/http/http_status.hpp>
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/storages/postgres/component.hpp>
 
@@ -42,8 +43,10 @@ class Ready final : public userver::server::handlers::HttpHandlerBase {
             .AsSingleRow<int>();
 
     bool is_ready = has_baseball && has_american_football && has_football;
-    return userver::formats::json::ToString(
-        userver::formats::json::MakeObject("is_ready", is_ready));
+    if (!is_ready)
+      request.SetResponseStatus(userver::server::http::HttpStatus::kBadRequest);
+
+    return "";
   }
 
   userver::storages::postgres::ClusterPtr pg_cluster_;
